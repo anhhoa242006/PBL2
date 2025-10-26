@@ -1,0 +1,13 @@
+5
+A NhaGa 0 0
+B BenXe 0 1
+C TrungTam 1 1
+D CongVien 2 0
+E SanBay 2 1
+6
+E1 AB 5 40 A B 2 0
+E2 BC 4 25 B C 2 1
+E3 CD 3 30 C D 1 1
+E4 AD 8 50 A D 2 0
+E5 CE 6 20 C E 2 1
+E6 DE 2 35 D E 2 2
