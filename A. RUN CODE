@@ -1,2 +1,2 @@
-g++ main.cpp RoadMap.cpp ShortestPath.cpp AlternativeRoute.cpp TrafficOptimization.cpp -o main.cpp
+g++ main.cpp RoadMap.cpp ShortestPath.cpp AlternativeRoute.cpp TrafficOptimization.cpp -o main
 ./main
