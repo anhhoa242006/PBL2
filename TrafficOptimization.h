@@ -1,16 +1,22 @@
 #pragma once
 #include "RoadMap.h"
 #include <string>
+#include <vector>
 
 class TrafficOptimization {
+private:
+    RoadMap& map_;
+    std::string congestedSource_; // Cặp điểm người dùng nhập
+    std::string congestedSink_;
+    double maxFlow_;                  
+    double actualFlow_;               
+
 public:
     TrafficOptimization(RoadMap& map);
 
-    void analyzeTraffic();             // Phân tích nút tắc nghẽn
-    void proposeSolution(double budget); // Đề xuất giải pháp dựa vào ngân sách
+    // Phân tích: So sánh Actual Flow vs Max Flow cho cặp điểm cụ thể
+    bool analyzeRouteCongestion(const std::string& start, const std::string& goal); 
 
-private:
-    RoadMap& map_;
-    std::string mostCongestedNode_;
-    double congestionLevel_; // giá trị từ 0.0 đến 1.0
+    // Đề xuất: Tìm đường đi thay thế (sử dụng ShortestPath)
+    void proposeNewRouteSolution();
 };

@@ -50,12 +50,28 @@ int main() {
             break;
         }
         case 3: {
-            double budget;
+            // Thêm input start/goal theo yêu cầu mới
+            string start, goal;
+            cout << "Nhap diem di (Source): "; cin >> start;
+            cout << "Nhap diem den (Goal): "; cin >> goal;
+
+            double budget; // Giữ nguyên biến budget
             TrafficOptimization opt(map);
-            opt.analyzeTraffic();
+            
+            // SỬA ĐỔI: Gọi hàm phân tích mới với input
+            bool isCongested = opt.analyzeRouteCongestion(start, goal); 
+            
+            // Giữ nguyên phần hỏi ngân sách và gọi hàm đề xuất mới
             cout << "Nhap ngan sach toi da (ty VND): ";
             cin >> budget;
-            opt.proposeSolution(budget);
+            
+            // SỬA ĐỔI: Gọi hàm đề xuất mới (chỉ chạy nếu bị tắc)
+            if (isCongested) {
+                opt.proposeNewRouteSolution();
+            } else {
+                cout << "\nKhong can de xuat tuyen duong moi, giao thong on dinh.\n";
+            }
+            
             break;
         }
         default:
