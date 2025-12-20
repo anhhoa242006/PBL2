@@ -1,56 +1,69 @@
+// ShortestPath.cpp
 #include "ShortestPath.h"
-#include <iostream>
 #include <queue>
 #include <unordered_map>
 #include <limits>
-#include <algorithm>
-using namespace std;
+#include <iostream>
+#include <algorithm>  // <-- cần thiết cho std::reverse
 
-struct NodeState {
-    string id;
-    double dist;
-    bool operator>(const NodeState& other) const { return dist > other.dist; }
-};
+using namespace std;
 
 ShortestPath::ShortestPath(RoadMap& map) : map_(map) {}
 
-void ShortestPath::findShortestPath(const string& start, const string& goal) {
+double ShortestPath::findShortestPath(const string& start,
+                                      const string& goal,
+                                      vector<string>& outPath) {
+
+    auto INF = numeric_limits<double>::infinity();
     unordered_map<string, double> dist;
-    unordered_map<string, string> prev;
+    unordered_map<string, string> parent;
 
-    for (auto& id : map_.getNodeIds()) dist[id] = numeric_limits<double>::infinity();
-    dist[start] = 0.0;
+    // khởi tạo
+    for (auto &id : map_.getNodeIds())
+        dist[id] = INF;
 
-    priority_queue<NodeState, vector<NodeState>, greater<NodeState>> pq;
-    pq.push({start, 0.0});
+    if (!map_.hasNode(start) || !map_.hasNode(goal)) return -1;
+
+    dist[start] = 0;
+
+    priority_queue<pair<double, string>,
+                   vector<pair<double,string>>,
+                   greater<pair<double,string>>> pq;
+
+    pq.push({0, start});
 
     while (!pq.empty()) {
-        auto [u, d] = pq.top();
-        pq.pop();
+        auto [d, u] = pq.top(); pq.pop();
         if (d > dist[u]) continue;
-        for (auto& e : map_.outgoingEdges(u)) {
-            double nd = d + e.travelTime();
-            if (nd < dist[e.dst]) {
-                dist[e.dst] = nd;
-                prev[e.dst] = u;
-                pq.push({e.dst, nd});
+
+        for (auto &e : map_.outgoingEdges(u)) {
+            double w = e.travelTime();
+            if (dist[e.dst] > dist[u] + w) {
+                dist[e.dst] = dist[u] + w;
+                parent[e.dst] = u;
+                pq.push({dist[e.dst], e.dst});
             }
         }
     }
 
-    if (dist[goal] == numeric_limits<double>::infinity()) {
-        cout << "Khong tim thay duong tu " << start << " den " << goal << ".\n";
-        return;
-    }
+    if (dist[goal] == INF) return -1;
 
-    vector<string> path;
-    for (string at = goal; at != ""; at = prev.count(at)?prev[at]:"") path.push_back(at);
-    reverse(path.begin(), path.end());
-
-    cout << "Tuyen ngan nhat: ";
-    for (size_t i = 0; i < path.size(); ++i) {
-        cout << path[i];
-        if (i + 1 < path.size()) cout << " ";
+    // truy vết đường — an toàn nếu parent không có key
+    outPath.clear();
+    string cur = goal;
+    while (cur != start) {
+        outPath.push_back(cur);
+        if (!parent.count(cur)) {
+            // unexpected: không có đường đầy đủ, trả về lỗi
+            outPath.clear();
+            return -1;
+        }
+        cur = parent[cur];
     }
-    cout << "\nChieu dai (thoi gian): " << dist[goal] << " don vi\n";
+    outPath.push_back(start);
+
+    // đảo ngược thứ tự để từ start -> goal
+    std::reverse(outPath.begin(), outPath.end());
+
+    return dist[goal];
 }

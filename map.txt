@@ -1,13 +1,31 @@
-5
-A NhaGa 0 0
-B BenXe 0 1
-C TrungTam 1 1
-D CongVien 2 0
-E SanBay 2 1
-6
-E1 AB 5 40 A B 2 0
-E2 BC 4 25 B C 2 1
-E3 CD 3 30 C D 1 1
-E4 AD 8 50 A D 2 0
-E5 CE 6 20 C E 2 1
-E6 DE 2 35 D E 2 2
+10
+A CentralSquare 12.011 107.551
+B RiverGate     12.015 107.560
+C TechPark      12.020 107.540
+D OldQuarter    12.005 107.545
+E EastBridge    12.018 107.570
+F HillTown      12.030 107.555
+G LakeSide      12.025 107.530
+H NorthPort     12.035 107.545
+I MarketZone    12.008 107.560
+J SouthHub      12.000 107.530
+
+18
+E01 MainAve         2.5 50 1500 1200 40000 A B 2 1
+E02 RiversideRd     3.0 45 1200 1500  35000 B E 2 1
+E03 SkyBridge       1.2 60 2000 2300 80000 E F 1 4
+E04 HillPass        2.8 40 1000 1300  30000 F G 2 2
+E05 ForestTunnel    3.6 55 1800 1700 90000 G C 1 5
+E06 WestConnector   1.7 45 1100 850  25000 C A 2 2
+E07 CentralLoop1    2.0 35 900  700  20000 A D 2 2
+E08 CentralLoop2    1.6 35 900  500  20000 D I 2 2
+E09 MarketSt        1.3 30 800  750  15000 I B 2 2
+E10 OldTownRoad     2.4 30 850  500  18000 D C 2 3
+E11 EastBelt        4.1 55 1700 1600 95000 E H 2 1
+E12 NorthHill       3.5 50 1400 900  60000 H F 2 1
+E13 LakeSideRing    2.2 35 900  400  20000 G H 2 2
+E14 SouthCorridor   4.5 60 2200 2100 70000 J A 1 1
+E15 MarketToSouth   3.0 40 1200 1100 30000 I J 2 2
+E16 TechHighway     5.0 70 3000 2500 150000 C H 1 0
+E17 EastExpress     4.7 65 2600 2400 140000 E J 1 0
+E18 Greenway        2.0 25 600  300  10000 D G 2 3
